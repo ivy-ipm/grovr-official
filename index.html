@@ -15,7 +15,7 @@ nav {text-align:center; margin-top:10px;}
 nav a {color:#fff; text-decoration:none; margin:0 15px; font-weight:600; transition:0.3s;}
 nav a:hover {color:#00ffe0;}
 .nav-admin {font-size:0.8em; background:#00ffe0; color:#111; padding:2px 6px; border-radius:5px; cursor:pointer; margin-left:5px; vertical-align:middle;}
-section {padding:180px 20px 80px; max-width:1200px; margin:0 auto; display:none; scroll-margin-top:140px;}
+section {padding:180px 20px 80px; max-width:1200px; margin:0 auto; display:none; scroll-margin-top:160px;}
 section.active {display:block;}
 .hero {display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; min-height:80vh; background: linear-gradient(180deg, #0d0d0d 0%, #111 100%); position:relative; overflow:hidden;}
 .hero::before {content:""; position:absolute; top:0; left:0; width:100%; height:100%; background:url('IMG_3959.jpeg') center/cover no-repeat; opacity:0.08; z-index:0; filter:blur(5px);}
@@ -29,9 +29,9 @@ section.active {display:block;}
 section h2 {text-align:center; color:#00ffe0; margin-bottom:20px; font-size:2.5em;}
 section p {max-width:800px; margin:auto; font-size:1.1em;}
 footer {text-align:center; padding:40px 0; border-top:2px solid #222; margin-top:50px; font-size:0.9em; color:#aaa;}
-.admin-panel {display:none; background:#222; padding:20px; border-radius:15px; margin-top:30px; max-width:600px; margin-left:auto; margin-right:auto;}
+.admin-panel {display:none; background:#222; padding:20px; border-radius:15px; margin-top:30px; max-width:700px; margin-left:auto; margin-right:auto;}
 .admin-panel label {display:block; margin:10px 0 5px;}
-.admin-panel input[type="text"], .admin-panel input[type="datetime-local"], .admin-panel button {padding:8px 12px; border-radius:6px; border:none; margin-bottom:10px;}
+.admin-panel input[type="text"], .admin-panel input[type="datetime-local"], .admin-panel button {padding:8px 12px; border-radius:6px; border:none; margin-bottom:10px; width:100%;}
 .admin-panel button {cursor:pointer; background:#00ffe0; font-weight:700; color:#111;}
 .admin-panel .bottom-toggle {margin-top:15px; text-align:center;}
 .playtest-status {text-align:center; font-size:1.2em; margin-top:20px; font-weight:600;}
@@ -90,10 +90,14 @@ footer {text-align:center; padding:40px 0; border-top:2px solid #222; margin-top
 <h3>Admin Panel</h3>
 <label>Playtest Message:</label>
 <input type="text" id="playtest-msg" value="#GROROADTOLAUNCH We are nearing launch, better join a playtest!">
-<label>Start Time (YYYY-MM-DD HH:MM, 24h):</label>
-<input type="datetime-local" id="start-time">
-<label>End Time (YYYY-MM-DD HH:MM, 24h):</label>
-<input type="datetime-local" id="end-time">
+<label>Saturday Playtest Start:</label>
+<input type="datetime-local" id="start-sat">
+<label>Saturday Playtest End:</label>
+<input type="datetime-local" id="end-sat">
+<label>Sunday Playtest Start:</label>
+<input type="datetime-local" id="start-sun">
+<label>Sunday Playtest End:</label>
+<input type="datetime-local" id="end-sun">
 <label><input type="checkbox" id="per-global-toggle"> Make This Playtest Global</label>
 <button onclick="saveAdmin()">Save / Update</button>
 <button onclick="togglePlaytest()">Toggle Active/Inactive</button>
@@ -133,6 +137,7 @@ playtests:[
 active:false,
 global:false
 };
+
 let lastSaved={...playtestData};
 
 if(localStorage.getItem('playtestData')){
@@ -141,13 +146,12 @@ lastSaved={...playtestData};
 }
 
 function saveAdmin(){
-let msg=document.getElementById('playtest-msg').value;
-let start=document.getElementById('start-time').value;
-let end=document.getElementById('end-time').value;
-let perGlobal=document.getElementById('per-global-toggle').checked;
-if(msg) playtestData.message=msg;
-if(start && end) playtestData.playtests=[{start:new Date(start).toISOString(),end:new Date(end).toISOString()}];
-playtestData.global=perGlobal;
+playtestData.message=document.getElementById('playtest-msg').value;
+playtestData.playtests=[
+{start:new Date(document.getElementById('start-sat').value).toISOString(), end:new Date(document.getElementById('end-sat').value).toISOString()},
+{start:new Date(document.getElementById('start-sun').value).toISOString(), end:new Date(document.getElementById('end-sun').value).toISOString()}
+];
+playtestData.global=document.getElementById('per-global-toggle').checked;
 lastSaved={...playtestData};
 localStorage.setItem('playtestData',JSON.stringify(playtestData));
 updatePlaytest();
@@ -157,10 +161,10 @@ alert("Playtest Updated");
 function revertChanges(){
 playtestData={...lastSaved};
 document.getElementById('playtest-msg').value=playtestData.message;
-if(playtestData.playtests.length>0){
-document.getElementById('start-time').value=playtestData.playtests[0].start.slice(0,16);
-document.getElementById('end-time').value=playtestData.playtests[0].end.slice(0,16);
-}
+document.getElementById('start-sat').value=playtestData.playtests[0].start.slice(0,16);
+document.getElementById('end-sat').value=playtestData.playtests[0].end.slice(0,16);
+document.getElementById('start-sun').value=playtestData.playtests[1].start.slice(0,16);
+document.getElementById('end-sun').value=playtestData.playtests[1].end.slice(0,16);
 document.getElementById('per-global-toggle').checked=playtestData.global;
 localStorage.setItem('playtestData',JSON.stringify(playtestData));
 updatePlaytest();
@@ -213,7 +217,15 @@ updatePlaytest();
 }
 
 setInterval(checkSchedule,60000);
-window.onload=()=>{updatePlaytest(); checkSchedule();};
+window.onload=()=>{
+document.getElementById('start-sat').value=playtestData.playtests[0].start.slice(0,16);
+document.getElementById('end-sat').value=playtestData.playtests[0].end.slice(0,16);
+document.getElementById('start-sun').value=playtestData.playtests[1].start.slice(0,16);
+document.getElementById('end-sun').value=playtestData.playtests[1].end.slice(0,16);
+document.getElementById('per-global-toggle').checked=playtestData.global;
+updatePlaytest(); 
+checkSchedule();
+};
 </script>
 
 </body>
