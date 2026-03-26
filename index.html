@@ -120,16 +120,30 @@ footer{text-align:center;padding:40px 0;border-top:2px solid #222;margin-top:50p
 function showSection(id){document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
 let adminCodeHash='5293';
 function adminPass(){let pass=prompt("Enter Admin Passcode:");if(pass===adminCodeHash){document.getElementById('admin-panel').style.display='block';alert("Admin Panel Activated");}else{alert("Incorrect Passcode");}}
+
 let playtestData={message:"#GROROADTOLAUNCH We are nearing launch, better join a playtest!",playtests:[{start:"2026-03-28T14:00:00",end:"2026-03-28T18:00:00"},{start:"2026-03-29T14:00:00",end:"2026-03-29T18:00:00"}],active:false,global:false};
 let lastSaved={...playtestData};
 if(localStorage.getItem('playtestData')){playtestData=JSON.parse(localStorage.getItem('playtestData'));lastSaved={...playtestData};}
+
 function saveAdmin(){playtestData.message=document.getElementById('playtest-msg').value;playtestData.playtests=[{start:new Date(document.getElementById('start-1').value).toISOString(),end:new Date(document.getElementById('end-1').value).toISOString()},{start:new Date(document.getElementById('start-2').value).toISOString(),end:new Date(document.getElementById('end-2').value).toISOString()}];playtestData.global=document.getElementById('per-global-toggle').checked;lastSaved={...playtestData};localStorage.setItem('playtestData',JSON.stringify(playtestData));updatePlaytest();alert("Playtest Updated");}
+
 function revertChanges(){playtestData={...lastSaved};document.getElementById('playtest-msg').value=playtestData.message;document.getElementById('start-1').value=playtestData.playtests[0].start.slice(0,16);document.getElementById('end-1').value=playtestData.playtests[0].end.slice(0,16);document.getElementById('start-2').value=playtestData.playtests[1].start.slice(0,16);document.getElementById('end-2').value=playtestData.playtests[1].end.slice(0,16);document.getElementById('per-global-toggle').checked=playtestData.global;localStorage.setItem('playtestData',JSON.stringify(playtestData));updatePlaytest();alert("Changes Reverted");}
+
 function togglePlaytest(){playtestData.active=!playtestData.active;localStorage.setItem('playtestData',JSON.stringify(playtestData));updatePlaytest();}
 function applyGlobalToggle(){playtestData.global=document.getElementById('global-toggle-bottom').checked;localStorage.setItem('playtestData',JSON.stringify(playtestData));updatePlaytest();}
+
 function updatePlaytest(){let now=new Date(),statusEl=document.getElementById('playtest-status'),cardsEl=document.getElementById('playtest-cards'),countdownEl=document.getElementById('playtest-countdown'),datesEl=document.getElementById('playtest-dates');cardsEl.innerHTML="";let isActive=false;playtestData.playtests.forEach((pt,i)=>{let start=new Date(pt.start),end=new Date(pt.end),activeNow=now>=start&&now<=end;if(activeNow)isActive=true;let card=document.createElement('div');card.className='playtest-card'+(activeNow?' active':'');card.innerHTML=`<strong>Playtest ${i+1}</strong><br>Start: ${start.toLocaleString()}<br>End: ${end.toLocaleString()}`;cardsEl.appendChild(card);});if(playtestData.active)isActive=true;statusEl.innerHTML=isActive?`<span style="color:#00ff6a;">ACTIVE</span><br>${playtestData.message}`:`<span style="color:#ff5555;">INACTIVE</span><br>${playtestData.message}`;if(playtestData.global)statusEl.innerHTML+="<br><em>Global Playtest Enabled</em>";datesEl.innerHTML=playtestData.playtests.map((pt,i)=>{let start=new Date(pt.start),end=new Date(pt.end);return `Playtest ${i+1} Start: ${start.toLocaleString()} | End: ${end.toLocaleString()}`;}).join("<br>");let nextChange=null;playtestData.playtests.forEach(pt=>{let start=new Date(pt.start),end=new Date(pt.end);if(!nextChange||start>now&&start<nextChange)nextChange=start;if(!nextChange||end>now&&end<nextChange)nextChange=end;});if(nextChange){let diff=Math.max(nextChange-now,0),hours=Math.floor(diff/1000/3600),minutes=Math.floor((diff/1000%3600)/60),seconds=Math.floor(diff/1000%60);countdownEl.innerHTML=`Next change in: ${hours}h ${minutes}m ${seconds}s`;}else{countdownEl.innerHTML="";}}
-function checkSchedule(){let now=new Date(),changed=false;playtestData.playtests.forEach(pt=>{let start=new Date(pt.start),end=new Date(pt.end),currentlyActive=playtestData.active;if(now>=start&&now<=end&&!currentlyActive){playtestData.active=true;changed=true;}if((now<start||now>end)&&currentlyActive){playtestData.active=false;changed=true;}});if(changed)updatePlaytest();}
-window.onload=()=>{document.getElementById('start-1').value=playtestData.playtests[0].start.slice(0,16);document.getElementById('end-1').value=playtestData.playtests[0].end.slice(0,16);document.getElementById('start-2').value=playtestData.playtests[1].start.slice(0,16);document.getElementById('end-2').value=playtestData.playtests[1].end.slice(0,16);document.getElementById('per-global-toggle').checked=playtestData.global;updatePlaytest();setInterval(checkSchedule,1000);checkSchedule();}
+
+function liveUpdate(){updatePlaytest();setTimeout(liveUpdate,1000);}
+
+window.onload=()=>{
+document.getElementById('start-1').value=playtestData.playtests[0].start.slice(0,16);
+document.getElementById('end-1').value=playtestData.playtests[0].end.slice(0,16);
+document.getElementById('start-2').value=playtestData.playtests[1].start.slice(0,16);
+document.getElementById('end-2').value=playtestData.playtests[1].end.slice(0,16);
+document.getElementById('per-global-toggle').checked=playtestData.global;
+liveUpdate();
+}
 </script>
 </body>
 </html>
