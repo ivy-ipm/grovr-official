@@ -15,9 +15,9 @@ nav {text-align:center; margin-top:10px;}
 nav a {color:#fff; text-decoration:none; margin:0 15px; font-weight:600; transition:0.3s;}
 nav a:hover {color:#00ffe0;}
 .nav-admin {font-size:0.8em; background:#00ffe0; color:#111; padding:2px 6px; border-radius:5px; cursor:pointer; margin-left:5px; vertical-align:middle;}
-section {padding:140px 20px 80px; max-width:1200px; margin:0 auto; display:none;}
+section {padding:140px 20px 80px; max-width:1200px; margin:0 auto; display:none; scroll-margin-top:100px;}
 section.active {display:block;}
-.hero {display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; min-height:100vh; background: linear-gradient(180deg, #0d0d0d 0%, #111 100%); position:relative; overflow:hidden;}
+.hero {display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; min-height:80vh; background: linear-gradient(180deg, #0d0d0d 0%, #111 100%); position:relative; overflow:hidden;}
 .hero::before {content:""; position:absolute; top:0; left:0; width:100%; height:100%; background:url('IMG_3959.jpeg') center/cover no-repeat; opacity:0.08; z-index:0; filter:blur(5px);}
 .hero h2 {font-size:3em; background:linear-gradient(45deg,#00ffe0,#00c6b3,#00ffe0); -webkit-background-clip:text; -webkit-text-fill-color:transparent; animation:gradientMove 3s infinite alternate; z-index:1;}
 @keyframes gradientMove {0%{background-position:0%}100%{background-position:100%}}
@@ -56,7 +56,7 @@ footer {text-align:center; padding:40px 0; border-top:2px solid #222; margin-top
 <div class="hero">
 <h2>Step Into The Ultimate VR Adventure</h2>
 <img src="IMG_3959.jpeg" alt="GRO VR Logo">
-<p>GRO VR is a unique VR game combining Gorilla Tag movement mechanics with creative gardening. Swing, climb, and tag around virtual worlds while planting and growing your own garden. Collect resources, upgrade your environment, and socialize with friends. Participate in playtests to explore new challenges, shape the game world, and experience immersive VR fun.</p>
+<p>GRO VR combines Gorilla Tag movement mechanics with creative gardening. Swing, climb, and tag while planting and growing your own garden. Collect resources, upgrade your environment, socialize, and explore immersive VR worlds. Join the playtests to help shape the game, experience new challenges, and enjoy a growing VR community.</p>
 <div class="button-group">
 <a href="#" onclick="showSection('play')" class="btn">Play on App Lab</a>
 <a href="#" onclick="showSection('youtube')" class="btn">Official YouTube</a>
@@ -84,12 +84,12 @@ footer {text-align:center; padding:40px 0; border-top:2px solid #222; margin-top
 <section id="api">
 <h2>Playtest API</h2>
 <div class="playtest-status" id="playtest-status">Loading...</div>
-<div class="playtest-dates" id="playtest-dates">No playtest dates set.</div>
+<div class="playtest-dates" id="playtest-dates"></div>
 
 <div class="admin-panel" id="admin-panel">
 <h3>Admin Panel</h3>
 <label>Playtest Message:</label>
-<input type="text" id="playtest-msg" placeholder="Enter message">
+<input type="text" id="playtest-msg" value="#GROROADTOLAUNCH We are nearing launch, better join a playtest!">
 <label>Start Time (YYYY-MM-DD HH:MM, 24h):</label>
 <input type="datetime-local" id="start-time">
 <label>End Time (YYYY-MM-DD HH:MM, 24h):</label>
@@ -124,12 +124,15 @@ alert("Admin Panel Activated");
 }else{alert("Incorrect Passcode");}
 }
 
-let playtestData={message:`This week, EVERYONE gets a chance to play
-We’re hosting 2 MEGA PLAYTESTS: 
-Saturday & Sunday 2 PM EST 
-500 players in each playtest!
-Spots will be given through a lucky draw.`,start:null,end:null,active:false,global:false};
-
+let playtestData={
+message:"#GROROADTOLAUNCH We are nearing launch, better join a playtest!",
+playtests:[
+{start:"2026-03-30T14:00:00",end:"2026-03-30T18:00:00"},
+{start:"2026-03-31T14:00:00",end:"2026-03-31T18:00:00"}
+],
+active:false,
+global:false
+};
 let lastSaved={...playtestData};
 
 if(localStorage.getItem('playtestData')){
@@ -143,8 +146,7 @@ let start=document.getElementById('start-time').value;
 let end=document.getElementById('end-time').value;
 let perGlobal=document.getElementById('per-global-toggle').checked;
 if(msg) playtestData.message=msg;
-if(start) playtestData.start=start?new Date(start).toISOString():null;
-if(end) playtestData.end=end?new Date(end).toISOString():null;
+if(start && end) playtestData.playtests=[{start:new Date(start).toISOString(),end:new Date(end).toISOString()}];
 playtestData.global=perGlobal;
 lastSaved={...playtestData};
 localStorage.setItem('playtestData',JSON.stringify(playtestData));
@@ -155,8 +157,10 @@ alert("Playtest Updated");
 function revertChanges(){
 playtestData={...lastSaved};
 document.getElementById('playtest-msg').value=playtestData.message;
-document.getElementById('start-time').value=playtestData.start?playtestData.start.slice(0,16):'';
-document.getElementById('end-time').value=playtestData.end?playtestData.end.slice(0,16):'';
+if(playtestData.playtests.length>0){
+document.getElementById('start-time').value=playtestData.playtests[0].start.slice(0,16);
+document.getElementById('end-time').value=playtestData.playtests[0].end.slice(0,16);
+}
 document.getElementById('per-global-toggle').checked=playtestData.global;
 localStorage.setItem('playtestData',JSON.stringify(playtestData));
 updatePlaytest();
@@ -180,27 +184,31 @@ function updatePlaytest(){
 let now=new Date();
 let statusEl=document.getElementById('playtest-status');
 let datesEl=document.getElementById('playtest-dates');
-let start=new Date(playtestData.start);
-let end=new Date(playtestData.end);
 let isActive=false;
-if(playtestData.start && playtestData.end){
+playtestData.playtests.forEach(pt=>{
+let start=new Date(pt.start);
+let end=new Date(pt.end);
 if(now>=start && now<=end) isActive=true;
-}
+});
 if(playtestData.active) isActive=true;
 let text=isActive?`<span style="color:#00ff6a;">ACTIVE</span><br>${playtestData.message}`:`<span style="color:#ff5555;">INACTIVE</span><br>${playtestData.message}`;
 if(playtestData.global) text+="<br><em>Global Playtest Enabled</em>";
 statusEl.innerHTML=text;
-datesEl.innerHTML=(playtestData.start && playtestData.end)?`Playtest Start: ${start.toLocaleString()} | End: ${end.toLocaleString()}`:"No playtest dates set.";
+datesEl.innerHTML=playtestData.playtests.map(pt=>{
+let start=new Date(pt.start);
+let end=new Date(pt.end);
+return `Playtest Start: ${start.toLocaleString()} | End: ${end.toLocaleString()}`;
+}).join("<br>");
 }
 
 function checkSchedule(){
 let now=new Date();
-let day=now.getUTCDay();
-let hours=now.getUTCHours()-4;
-if(hours<0) hours+=24;
-if((day===6 && hours>=14 && hours<17)||(day===0 && hours>=14 && hours<17)){
-playtestData.active=true;
-}else{playtestData.active=false;}
+playtestData.active=false;
+playtestData.playtests.forEach(pt=>{
+let start=new Date(pt.start);
+let end=new Date(pt.end);
+if(now>=start && now<=end) playtestData.active=true;
+});
 updatePlaytest();
 }
 
