@@ -7,14 +7,15 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 * {margin:0; padding:0; box-sizing:border-box;}
-html {scroll-behavior: smooth;}
+html {scroll-behavior:smooth;}
 body {font-family:'Poppins',sans-serif; background:#0d0d0d; color:#fff;}
 header {position:fixed; top:0; width:100%; background:#111; z-index:1000; padding:20px 0; border-bottom:2px solid #222;}
 header h1 {text-align:center; font-size:2.5em; color:#00ffe0; letter-spacing:2px;}
 nav {text-align:center; margin-top:10px;}
-nav a {color:#fff; text-decoration:none; margin:0 20px; font-weight:600; transition:0.3s;}
+nav a {color:#fff; text-decoration:none; margin:0 15px; font-weight:600; transition:0.3s; position:relative;}
 nav a:hover {color:#00ffe0;}
-section {padding:100px 20px 80px; max-width:1200px; margin:0 auto;}
+.nav-admin {font-size:0.8em; background:#00ffe0; color:#111; padding:2px 6px; border-radius:5px; cursor:pointer; margin-left:5px; vertical-align:middle;}
+section {padding:140px 20px 80px; max-width:1200px; margin:0 auto;}
 .hero {display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; min-height:100vh; background: linear-gradient(180deg, #0d0d0d 0%, #111 100%); position:relative; overflow:hidden;}
 .hero::before {content:""; position:absolute; top:0; left:0; width:100%; height:100%; background:url('IMG_3959.jpeg') center/cover no-repeat; opacity:0.08; z-index:0; filter:blur(5px);}
 .hero h2 {font-size:3em; background:linear-gradient(45deg,#00ffe0,#00c6b3,#00ffe0); -webkit-background-clip:text; -webkit-text-fill-color:transparent; animation:gradientMove 3s infinite alternate; z-index:1;}
@@ -31,6 +32,11 @@ section {padding:100px 20px 80px; max-width:1200px; margin:0 auto;}
 section h2 {text-align:center; color:#00ffe0; margin-bottom:20px; font-size:2.5em;}
 section p {max-width:800px; margin:auto; font-size:1.1em;}
 footer {text-align:center; padding:40px 0; border-top:2px solid #222; margin-top:50px; font-size:0.9em; color:#aaa;}
+.admin-panel {display:none; background:#222; padding:20px; border-radius:15px; margin-top:30px; max-width:600px; margin-left:auto; margin-right:auto;}
+.admin-panel label {display:block; margin:10px 0 5px;}
+.admin-panel input, .admin-panel button {padding:8px 12px; border-radius:6px; border:none; margin-bottom:10px;}
+.admin-panel button {cursor:pointer; background:#00ffe0; font-weight:700; color:#111;}
+.playtest-status {text-align:center; font-size:1.2em; margin-top:20px; font-weight:600;}
 @media(max-width:768px){.hero h2{font-size:2em}.hero img{width:180px;height:180px}.btn{padding:12px 25px}}
 </style>
 </head>
@@ -41,7 +47,8 @@ footer {text-align:center; padding:40px 0; border-top:2px solid #222; margin-top
 <nav>
 <a href="#about">About</a>
 <a href="#features">Features</a>
-<a href="#download">Play</a>
+<a href="#api">API</a>
+<span class="nav-admin" onclick="adminPass()">Admin</span>
 </nav>
 </header>
 
@@ -77,18 +84,93 @@ footer {text-align:center; padding:40px 0; border-top:2px solid #222; margin-top
 </div>
 </section>
 
-<section id="download" style="text-align:center; padding-bottom:100px;">
-<h2>Get GRO VR on App Lab</h2>
-<p>Join the playtest now and be among the first to explore GRO VR’s immersive world.</p>
-<div class="button-group">
-<a href="https://www.meta.com/experiences/gro/24696055850016802/" class="btn">Download on App Lab</a>
-<a href="https://www.youtube.com/@GRO.VRgame" class="btn">Official YouTube</a>
-</div>
+<section id="api">
+<h2>Playtest API</h2>
+<div class="playtest-status" id="playtest-status">Loading...</div>
 </section>
+
+<div class="admin-panel" id="admin-panel">
+<h3>Admin Panel</h3>
+<label>Playtest Message:</label>
+<input type="text" id="playtest-msg" placeholder="Enter message">
+<label>Start Time (YYYY-MM-DD HH:MM, 24h):</label>
+<input type="datetime-local" id="start-time">
+<label>End Time (YYYY-MM-DD HH:MM, 24h):</label>
+<input type="datetime-local" id="end-time">
+<button onclick="saveAdmin()">Save / Update</button>
+<button onclick="togglePlaytest()">Toggle Active/Inactive</button>
+</div>
 
 <footer>
 <p>&copy; 2026 GRO VR. All Rights Reserved.</p>
 </footer>
+
+<script>
+let adminCodeHash = '5293'; // simple hash for example
+let playtestData = {
+message:`This week, EVERYONE gets a chance to play
+We’re hosting 2 MEGA PLAYTESTS: 
+Saturday & Sunday 2 PM EST 
+500 players in each playtest!
+Spots will be given through a lucky draw.`,
+start:null,
+end:null,
+active:false
+};
+
+function adminPass(){
+let pass = prompt("Enter Admin Passcode:");
+if(pass===adminCodeHash){
+document.getElementById('admin-panel').style.display='block';
+alert("Admin Panel Activated");
+}else{alert("Incorrect Passcode");}
+}
+
+function saveAdmin(){
+let msg = document.getElementById('playtest-msg').value;
+let start = document.getElementById('start-time').value;
+let end = document.getElementById('end-time').value;
+if(msg) playtestData.message=msg;
+if(start) playtestData.start=new Date(start);
+if(end) playtestData.end=new Date(end);
+updatePlaytest();
+alert("Playtest Updated");
+}
+
+function togglePlaytest(){
+playtestData.active=!playtestData.active;
+updatePlaytest();
+}
+
+function updatePlaytest(){
+let now = new Date();
+let statusEl = document.getElementById('playtest-status');
+let isActive = false;
+if(playtestData.start && playtestData.end){
+if(now>=playtestData.start && now<=playtestData.end){
+isActive=true;
+}
+}
+if(playtestData.active) isActive=true;
+statusEl.innerHTML = isActive?`<span style="color:#00ff6a;">ACTIVE</span><br>${playtestData.message}`:`<span style="color:#ff5555;">INACTIVE</span><br>${playtestData.message}`;
+}
+
+// Automatic schedule for Sat 2-5 PM & Sun 2-5 PM EST
+function checkSchedule(){
+let now = new Date();
+let day = now.getUTCDay(); // 6=Saturday, 0=Sunday in JS UTC
+let hours = now.getUTCHours()-4; // Convert UTC to EST (UTC-4)
+if(hours<0) hours+=24;
+if((day===6 && hours>=14 && hours<17)||(day===0 && hours>=14 && hours<17)){
+playtestData.active=true;
+}else{
+playtestData.active=false;
+}
+updatePlaytest();
+}
+setInterval(checkSchedule,60000);
+window.onload=()=>{updatePlaytest(); checkSchedule();}
+</script>
 
 </body>
 </html>
