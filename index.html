@@ -15,6 +15,7 @@ nav a{margin:0 15px;font-weight:600;color:#fff;transition:0.3s;}
 nav a:hover{color:#00ffe0;}
 .nav-admin{font-size:0.8em;background:#00ffe0;color:#111;padding:3px 6px;border-radius:5px;cursor:pointer;margin-left:5px;vertical-align:middle;}
 
+/* Sections */
 section{
   padding:160px 20px 80px;
   max-width:1200px;
@@ -22,16 +23,15 @@ section{
   opacity:0;
   transform:translateY(20px);
   transition:opacity 0.6s, transform 0.6s;
-  display:block;
-  height:auto;
-  pointer-events:none;
+  display:none;
 }
 section.active{
+  display:block;
   opacity:1;
   transform:translateY(0);
-  pointer-events:auto;
 }
 
+/* Hero */
 .hero{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:80vh;position:relative;overflow:hidden;}
 .hero::before{content:"";position:absolute;top:0;left:0;width:100%;height:100%;background:url('IMG_3959.jpeg') center/cover no-repeat;opacity:0.07;filter:blur(6px);z-index:0;}
 .hero h2{font-size:3em;background:linear-gradient(45deg,#00ffe0,#00c6b3,#00ffe0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradientMove 3s infinite alternate;z-index:1;text-align:center;}
@@ -41,24 +41,29 @@ section.active{
 .button-group{display:flex;justify-content:center;flex-wrap:wrap;margin-top:25px;z-index:1;}
 .btn{background:linear-gradient(45deg,#00ffe0,#00c6b3);color:#111;padding:14px 30px;border:none;border-radius:12px;cursor:pointer;font-weight:700;margin:10px;transition:0.3s;}
 .btn:hover{background:linear-gradient(45deg,#00c6b3,#00ffe0);transform:translateY(-3px);}
+
+/* Section headings and text */
 section h2{text-align:center;color:#00ffe0;margin-bottom:25px;font-size:2.5em;}
 section p{max-width:800px;margin:auto;font-size:1.1em;margin-bottom:25px;text-align:center;}
-footer{text-align:center;padding:40px 0;border-top:2px solid #222;margin-top:50px;font-size:0.9em;color:#aaa;}
 
-/* Playtest API Section */
+/* Playtest API */
 #api{display:flex;flex-direction:column;align-items:center;}
 .playtest-status{font-size:1.3em;font-weight:700;text-align:center;margin-bottom:15px;}
 .playtest-container{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;width:100%;max-width:1000px;}
-.playtest-card{background:#111;border:2px solid #00ffe0;border-radius:15px;padding:20px;min-width:250px;max-width:280px;text-align:center;transition:0.3s;cursor:default;}
+.playtest-card{background:rgba(17,17,17,0.8);border:2px solid #00ffe0;border-radius:15px;padding:20px;min-width:250px;max-width:280px;text-align:center;transition:0.3s;cursor:default;backdrop-filter:blur(5px);}
 .playtest-card.active{background:#00ff6a;color:#111;border-color:#00ff6a;}
 .playtest-countdown,.playtest-dates{font-size:1em;text-align:center;margin-top:10px;color:#aaa;}
 
+/* Admin panel */
 .admin-panel{display:none;background:#222;padding:25px;border-radius:15px;margin-top:30px;max-width:700px;margin:auto;box-shadow:0 0 25px rgba(0,255,224,0.2);}
 .admin-panel label{display:block;margin:10px 0 5px;}
 .admin-panel input[type="text"],.admin-panel input[type="datetime-local"],.admin-panel button{padding:10px;border-radius:6px;border:none;margin-bottom:10px;width:100%;}
 .admin-panel button{cursor:pointer;background:#00ffe0;font-weight:700;color:#111;transition:0.3s;}
 .admin-panel button:hover{background:#00c6b3;}
 .admin-panel .bottom-toggle{text-align:center;margin-top:10px;}
+
+/* Footer */
+footer{text-align:center;padding:40px 0;border-top:2px solid #222;margin-top:50px;font-size:0.9em;color:#aaa;}
 
 @media(max-width:768px){.hero h2{font-size:2em}.hero img{width:180px;height:180px}.btn{padding:12px 25px}}
 </style>
@@ -75,6 +80,7 @@ footer{text-align:center;padding:40px 0;border-top:2px solid #222;margin-top:50p
 </nav>
 </header>
 
+<!-- Home -->
 <section id="home" class="active">
 <div class="hero">
 <h2>Step Into The Ultimate VR Adventure</h2>
@@ -88,6 +94,7 @@ footer{text-align:center;padding:40px 0;border-top:2px solid #222;margin-top:50p
 </div>
 </section>
 
+<!-- Play -->
 <section id="play">
 <h2>Play GRO VR</h2>
 <p>Access the GRO VR playtest on Meta Quest App Lab:</p>
@@ -96,6 +103,7 @@ footer{text-align:center;padding:40px 0;border-top:2px solid #222;margin-top:50p
 </div>
 </section>
 
+<!-- YouTube -->
 <section id="youtube">
 <h2>Official YouTube Channel</h2>
 <p>Watch trailers, updates, and developer content for GRO VR on our official YouTube channel.</p>
@@ -104,6 +112,7 @@ footer{text-align:center;padding:40px 0;border-top:2px solid #222;margin-top:50p
 </div>
 </section>
 
+<!-- API -->
 <section id="api">
 <h2>Playtest API</h2>
 <div class="playtest-status" id="playtest-status"></div>
@@ -152,12 +161,10 @@ function adminPass(){
   if(pass===adminCodeHash){
     document.getElementById('admin-panel').style.display='block';
     alert("Admin Panel Activated");
-  } else {
-    alert("Incorrect Passcode");
-  }
+  } else { alert("Incorrect Passcode"); }
 }
 
-// Playtest Data
+// Playtest data
 let playtestData={message:"#GROROADTOLAUNCH Join now!",playtests:[{start:"2026-03-28T14:00:00",end:"2026-03-28T18:00:00"},{start:"2026-03-29T14:00:00",end:"2026-03-29T18:00:00"}],active:true,global:false};
 let lastSaved={...playtestData};
 if(localStorage.getItem('playtestData')){playtestData=JSON.parse(localStorage.getItem('playtestData'));lastSaved={...playtestData};}
@@ -192,7 +199,7 @@ function revertChanges(){
 function togglePlaytest(){playtestData.active=!playtestData.active;localStorage.setItem('playtestData',JSON.stringify(playtestData));updatePlaytest();}
 function applyGlobalToggle(){playtestData.global=document.getElementById('global-toggle-bottom').checked;localStorage.setItem('playtestData',JSON.stringify(playtestData));updatePlaytest();}
 
-// Playtest Rendering
+// Playtest rendering
 function updatePlaytest(){
   let now=new Date(),
       statusEl=document.getElementById('playtest-status'),
@@ -213,7 +220,6 @@ function updatePlaytest(){
   statusEl.innerHTML=isActive?`<span style="color:#00ff6a;">ACTIVE</span><br>${playtestData.message}`:`<span style="color:#ff5555;">INACTIVE</span><br>${playtestData.message}`;
   if(playtestData.global)statusEl.innerHTML+="<br><em>Global Playtest Enabled</em>";
   datesEl.innerHTML=playtestData.playtests.map((pt,i)=>{let start=new Date(pt.start),end=new Date(pt.end);return `Playtest ${i+1} Start: ${start.toLocaleString()} | End: ${end.toLocaleString()}`;}).join("<br>");
-  // countdown
   let nextChange=null;
   playtestData.playtests.forEach(pt=>{
     let start=new Date(pt.start),end=new Date(pt.end);
