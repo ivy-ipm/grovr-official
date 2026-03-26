@@ -137,7 +137,6 @@ playtests:[
 active:false,
 global:false
 };
-
 let lastSaved={...playtestData};
 if(localStorage.getItem('playtestData')){
 playtestData=JSON.parse(localStorage.getItem('playtestData'));
@@ -177,8 +176,7 @@ updatePlaytest();
 }
 
 function applyGlobalToggle(){
-let global=document.getElementById('global-toggle-bottom').checked;
-playtestData.global=global;
+playtestData.global=document.getElementById('global-toggle-bottom').checked;
 localStorage.setItem('playtestData',JSON.stringify(playtestData));
 updatePlaytest();
 }
@@ -206,23 +204,25 @@ return `Playtest ${i+1} Start: ${start.toLocaleString()} | End: ${end.toLocaleSt
 
 function checkSchedule(){
 let now=new Date();
-playtestData.active=false;
+let changed=false;
 playtestData.playtests.forEach(pt=>{
 let start=new Date(pt.start);
 let end=new Date(pt.end);
-if(now>=start && now<=end) playtestData.active=true;
+let currentlyActive=playtestData.active;
+if(now>=start && now<=end && !currentlyActive){playtestData.active=true; changed=true;}
+if(now<start || now>end && currentlyActive){playtestData.active=false; changed=true;}
 });
-updatePlaytest();
+if(changed){updatePlaytest();}
 }
 
-setInterval(checkSchedule,10000);
 window.onload=()=>{
 document.getElementById('start-1').value=playtestData.playtests[0].start.slice(0,16);
 document.getElementById('end-1').value=playtestData.playtests[0].end.slice(0,16);
 document.getElementById('start-2').value=playtestData.playtests[1].start.slice(0,16);
 document.getElementById('end-2').value=playtestData.playtests[1].end.slice(0,16);
 document.getElementById('per-global-toggle').checked=playtestData.global;
-updatePlaytest(); 
+updatePlaytest();
+setInterval(checkSchedule,1000);
 checkSchedule();
 };
 </script>
