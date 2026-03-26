@@ -6,44 +6,43 @@
 <title>GRO VR - Official Website</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
-* {margin:0; padding:0; box-sizing:border-box;}
-html {scroll-behavior:smooth;}
-body {font-family:'Poppins',sans-serif; background:#0d0d0d; color:#fff;}
-header {position:fixed; top:0; width:100%; background:#111; z-index:1000; padding:20px 0; border-bottom:2px solid #222;}
-header h1 {text-align:center; font-size:2.5em; color:#00ffe0; letter-spacing:2px;}
-nav {text-align:center; margin-top:10px;}
-nav a {color:#fff; text-decoration:none; margin:0 15px; font-weight:600; transition:0.3s;}
-nav a:hover {color:#00ffe0;}
-.nav-admin {font-size:0.8em; background:#00ffe0; color:#111; padding:2px 6px; border-radius:5px; cursor:pointer; margin-left:5px; vertical-align:middle;}
-section {padding:180px 20px 80px; max-width:1200px; margin:0 auto; display:none; scroll-margin-top:180px;}
-section.active {display:block;}
-.hero {display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; min-height:80vh; background: linear-gradient(180deg, #0d0d0d 0%, #111 100%); position:relative; overflow:hidden;}
-.hero::before {content:""; position:absolute; top:0; left:0; width:100%; height:100%; background:url('IMG_3959.jpeg') center/cover no-repeat; opacity:0.08; z-index:0; filter:blur(5px);}
-.hero h2 {font-size:3em; background:linear-gradient(45deg,#00ffe0,#00c6b3,#00ffe0); -webkit-background-clip:text; -webkit-text-fill-color:transparent; animation:gradientMove 3s infinite alternate; z-index:1;}
-@keyframes gradientMove {0%{background-position:0%}100%{background-position:100%}}
-.hero img {width:250px; height:250px; object-fit:cover; border-radius:25px; box-shadow:0 15px 40px rgba(0,255,224,0.3); margin:30px 0; z-index:1;}
-.hero p {max-width:700px; margin:auto; font-size:1.2em; z-index:1; text-align:center;}
-.button-group {display:flex; justify-content:center; flex-wrap:wrap; margin-top:25px; z-index:1;}
-.btn {background:linear-gradient(45deg,#00ffe0,#00c6b3); color:#111; padding:14px 30px; border:none; border-radius:12px; cursor:pointer; text-decoration:none; font-weight:700; margin:10px; transition:0.3s;}
-.btn:hover {background:linear-gradient(45deg,#00c6b3,#00ffe0); transform:translateY(-3px);}
-section h2 {text-align:center; color:#00ffe0; margin-bottom:20px; font-size:2.5em;}
-section p {max-width:800px; margin:auto; font-size:1.1em;}
-footer {text-align:center; padding:40px 0; border-top:2px solid #222; margin-top:50px; font-size:0.9em; color:#aaa;}
-.admin-panel {display:none; background:#222; padding:20px; border-radius:15px; margin-top:30px; max-width:700px; margin-left:auto; margin-right:auto;}
-.admin-panel label {display:block; margin:10px 0 5px;}
-.admin-panel input[type="text"], .admin-panel input[type="datetime-local"], .admin-panel button {padding:8px 12px; border-radius:6px; border:none; margin-bottom:10px; width:100%;}
-.admin-panel button {cursor:pointer; background:#00ffe0; font-weight:700; color:#111;}
-.admin-panel .bottom-toggle {margin-top:15px; text-align:center;}
-.playtest-status {text-align:center; font-size:1.2em; margin-top:20px; font-weight:600;}
-.playtest-dates {text-align:center; font-size:1em; margin-top:10px; color:#ccc;}
-.playtest-countdown {text-align:center; font-size:1em; margin-top:5px; color:#aaa;}
-.playtest-card {border:1px solid #00ffe0; border-radius:12px; padding:12px; margin:10px auto; max-width:400px; text-align:center; transition:0.3s;}
-.playtest-card.active {background:#00ff6a; color:#111; border-color:#00ff6a;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Poppins',sans-serif;background:#0d0d0d;color:#fff;}
+header{position:fixed;top:0;width:100%;background:#111;z-index:1000;padding:20px 0;border-bottom:2px solid #222;}
+header h1{text-align:center;font-size:2.5em;color:#00ffe0;letter-spacing:2px;}
+nav{text-align:center;margin-top:10px;}
+nav a{color:#fff;text-decoration:none;margin:0 15px;font-weight:600;transition:0.3s;}
+nav a:hover{color:#00ffe0;}
+.nav-admin{font-size:0.8em;background:#00ffe0;color:#111;padding:2px 6px;border-radius:5px;cursor:pointer;margin-left:5px;vertical-align:middle;}
+section{padding:180px 20px 80px;max-width:1200px;margin:0 auto;display:none;scroll-margin-top:180px;}
+section.active{display:block;}
+.hero{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:80vh;position:relative;overflow:hidden;}
+.hero::before{content:"";position:absolute;top:0;left:0;width:100%;height:100%;background:url('IMG_3959.jpeg') center/cover no-repeat;opacity:0.08;z-index:0;filter:blur(5px);}
+.hero h2{font-size:3em;background:linear-gradient(45deg,#00ffe0,#00c6b3,#00ffe0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradientMove 3s infinite alternate;z-index:1;}
+@keyframes gradientMove{0%{background-position:0%}100%{background-position:100%}}
+.hero img{width:250px;height:250px;object-fit:cover;border-radius:25px;box-shadow:0 15px 40px rgba(0,255,224,0.3);margin:30px 0;z-index:1;}
+.hero p{max-width:700px;margin:auto;font-size:1.2em;z-index:1;text-align:center;}
+.button-group{display:flex;justify-content:center;flex-wrap:wrap;margin-top:25px;z-index:1;}
+.btn{background:linear-gradient(45deg,#00ffe0,#00c6b3);color:#111;padding:14px 30px;border:none;border-radius:12px;cursor:pointer;text-decoration:none;font-weight:700;margin:10px;transition:0.3s;}
+.btn:hover{background:linear-gradient(45deg,#00c6b3,#00ffe0);transform:translateY(-3px);}
+section h2{text-align:center;color:#00ffe0;margin-bottom:20px;font-size:2.5em;}
+section p{max-width:800px;margin:auto;font-size:1.1em;}
+footer{text-align:center;padding:40px 0;border-top:2px solid #222;margin-top:50px;font-size:0.9em;color:#aaa;}
+.admin-panel{display:none;background:#222;padding:20px;border-radius:15px;margin-top:30px;max-width:700px;margin-left:auto;margin-right:auto;}
+.admin-panel label{display:block;margin:10px 0 5px;}
+.admin-panel input[type="text"],.admin-panel input[type="datetime-local"],.admin-panel button{padding:8px 12px;border-radius:6px;border:none;margin-bottom:10px;width:100%;}
+.admin-panel button{cursor:pointer;background:#00ffe0;font-weight:700;color:#111;}
+.admin-panel .bottom-toggle{margin-top:15px;text-align:center;}
+.playtest-status{text-align:center;font-size:1.2em;margin-top:20px;font-weight:600;}
+.playtest-dates{text-align:center;font-size:1em;margin-top:10px;color:#ccc;}
+.playtest-countdown{text-align:center;font-size:1em;margin-top:5px;color:#aaa;}
+.playtest-card{border:1px solid #00ffe0;border-radius:12px;padding:12px;margin:10px auto;max-width:400px;text-align:center;transition:0.3s;}
+.playtest-card.active{background:#00ff6a;color:#111;border-color:#00ff6a;}
 @media(max-width:768px){.hero h2{font-size:2em}.hero img{width:180px;height:180px}.btn{padding:12px 25px}}
 </style>
 </head>
 <body>
-
 <header>
 <h1>GRO VR</h1>
 <nav>
@@ -118,81 +117,19 @@ footer {text-align:center; padding:40px 0; border-top:2px solid #222; margin-top
 </footer>
 
 <script>
-function showSection(id){
-document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
-document.getElementById(id).classList.add('active');
-window.scrollTo(0,0);
-}
-
+function showSection(id){document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
 let adminCodeHash='5293';
-function adminPass(){
-let pass=prompt("Enter Admin Passcode:");
-if(pass===adminCodeHash){document.getElementById('admin-panel').style.display='block';alert("Admin Panel Activated");}else{alert("Incorrect Passcode");}
-}
-
+function adminPass(){let pass=prompt("Enter Admin Passcode:");if(pass===adminCodeHash){document.getElementById('admin-panel').style.display='block';alert("Admin Panel Activated");}else{alert("Incorrect Passcode");}}
 let playtestData={message:"#GROROADTOLAUNCH We are nearing launch, better join a playtest!",playtests:[{start:"2026-03-28T14:00:00",end:"2026-03-28T18:00:00"},{start:"2026-03-29T14:00:00",end:"2026-03-29T18:00:00"}],active:false,global:false};
 let lastSaved={...playtestData};
 if(localStorage.getItem('playtestData')){playtestData=JSON.parse(localStorage.getItem('playtestData'));lastSaved={...playtestData};}
-
-function saveAdmin(){
-playtestData.message=document.getElementById('playtest-msg').value;
-playtestData.playtests=[{start:new Date(document.getElementById('start-1').value).toISOString(),end:new Date(document.getElementById('end-1').value).toISOString()},{start:new Date(document.getElementById('start-2').value).toISOString(),end:new Date(document.getElementById('end-2').value).toISOString()}];
-playtestData.global=document.getElementById('per-global-toggle').checked;
-lastSaved={...playtestData};
-localStorage.setItem('playtestData',JSON.stringify(playtestData));
-updatePlaytest();
-alert("Playtest Updated");
-}
-
-function revertChanges(){
-playtestData={...lastSaved};
-document.getElementById('playtest-msg').value=playtestData.message;
-document.getElementById('start-1').value=playtestData.playtests[0].start.slice(0,16);
-document.getElementById('end-1').value=playtestData.playtests[0].end.slice(0,16);
-document.getElementById('start-2').value=playtestData.playtests[1].start.slice(0,16);
-document.getElementById('end-2').value=playtestData.playtests[1].end.slice(0,16);
-document.getElementById('per-global-toggle').checked=playtestData.global;
-localStorage.setItem('playtestData',JSON.stringify(playtestData));
-updatePlaytest();
-alert("Changes Reverted");
-}
-
+function saveAdmin(){playtestData.message=document.getElementById('playtest-msg').value;playtestData.playtests=[{start:new Date(document.getElementById('start-1').value).toISOString(),end:new Date(document.getElementById('end-1').value).toISOString()},{start:new Date(document.getElementById('start-2').value).toISOString(),end:new Date(document.getElementById('end-2').value).toISOString()}];playtestData.global=document.getElementById('per-global-toggle').checked;lastSaved={...playtestData};localStorage.setItem('playtestData',JSON.stringify(playtestData));updatePlaytest();alert("Playtest Updated");}
+function revertChanges(){playtestData={...lastSaved};document.getElementById('playtest-msg').value=playtestData.message;document.getElementById('start-1').value=playtestData.playtests[0].start.slice(0,16);document.getElementById('end-1').value=playtestData.playtests[0].end.slice(0,16);document.getElementById('start-2').value=playtestData.playtests[1].start.slice(0,16);document.getElementById('end-2').value=playtestData.playtests[1].end.slice(0,16);document.getElementById('per-global-toggle').checked=playtestData.global;localStorage.setItem('playtestData',JSON.stringify(playtestData));updatePlaytest();alert("Changes Reverted");}
 function togglePlaytest(){playtestData.active=!playtestData.active;localStorage.setItem('playtestData',JSON.stringify(playtestData));updatePlaytest();}
 function applyGlobalToggle(){playtestData.global=document.getElementById('global-toggle-bottom').checked;localStorage.setItem('playtestData',JSON.stringify(playtestData));updatePlaytest();}
-
-function updatePlaytest(){
-let now=new Date(),statusEl=document.getElementById('playtest-status'),countdownEl=document.getElementById('playtest-countdown'),datesEl=document.getElementById('playtest-dates'),cardsEl=document.getElementById('playtest-cards');
-cardsEl.innerHTML="";let isActive=false;
-playtestData.playtests.forEach((pt,i)=>{
-let start=new Date(pt.start),end=new Date(pt.end),activeNow=now>=start&&now<=end;
-if(activeNow)isActive=true;
-let card=document.createElement('div');
-card.className='playtest-card'+(activeNow?' active':'');
-card.innerHTML=`<strong>Playtest ${i+1}</strong><br>Start: ${start.toLocaleString()}<br>End: ${end.toLocaleString()}`;
-cardsEl.appendChild(card);
-});
-if(playtestData.active)isActive=true;
-statusEl.innerHTML=isActive?`<span style="color:#00ff6a;">ACTIVE</span><br>${playtestData.message}`:`<span style="color:#ff5555;">INACTIVE</span><br>${playtestData.message}`;
-if(playtestData.global)statusEl.innerHTML+="<br><em>Global Playtest Enabled</em>";
-datesEl.innerHTML=playtestData.playtests.map((pt,i)=>{let start=new Date(pt.start),end=new Date(pt.end);return `Playtest ${i+1} Start: ${start.toLocaleString()} | End: ${end.toLocaleString()}`;}).join("<br>");
-let nextChange=null;
-playtestData.playtests.forEach(pt=>{let start=new Date(pt.start),end=new Date(pt.end);if(!nextChange||start>now&&start<nextChange)nextChange=start;if(!nextChange||end>now&&end<nextChange)nextChange=end;});
-if(nextChange){let diff=Math.max(nextChange-now,0),hours=Math.floor(diff/1000/3600),minutes=Math.floor((diff/1000%3600)/60),seconds=Math.floor(diff/1000%60);countdownEl.innerHTML=`Next change in: ${hours}h ${minutes}m ${seconds}s`;}else{countdownEl.innerHTML="";}
-}
-
+function updatePlaytest(){let now=new Date(),statusEl=document.getElementById('playtest-status'),cardsEl=document.getElementById('playtest-cards'),countdownEl=document.getElementById('playtest-countdown'),datesEl=document.getElementById('playtest-dates');cardsEl.innerHTML="";let isActive=false;playtestData.playtests.forEach((pt,i)=>{let start=new Date(pt.start),end=new Date(pt.end),activeNow=now>=start&&now<=end;if(activeNow)isActive=true;let card=document.createElement('div');card.className='playtest-card'+(activeNow?' active':'');card.innerHTML=`<strong>Playtest ${i+1}</strong><br>Start: ${start.toLocaleString()}<br>End: ${end.toLocaleString()}`;cardsEl.appendChild(card);});if(playtestData.active)isActive=true;statusEl.innerHTML=isActive?`<span style="color:#00ff6a;">ACTIVE</span><br>${playtestData.message}`:`<span style="color:#ff5555;">INACTIVE</span><br>${playtestData.message}`;if(playtestData.global)statusEl.innerHTML+="<br><em>Global Playtest Enabled</em>";datesEl.innerHTML=playtestData.playtests.map((pt,i)=>{let start=new Date(pt.start),end=new Date(pt.end);return `Playtest ${i+1} Start: ${start.toLocaleString()} | End: ${end.toLocaleString()}`;}).join("<br>");let nextChange=null;playtestData.playtests.forEach(pt=>{let start=new Date(pt.start),end=new Date(pt.end);if(!nextChange||start>now&&start<nextChange)nextChange=start;if(!nextChange||end>now&&end<nextChange)nextChange=end;});if(nextChange){let diff=Math.max(nextChange-now,0),hours=Math.floor(diff/1000/3600),minutes=Math.floor((diff/1000%3600)/60),seconds=Math.floor(diff/1000%60);countdownEl.innerHTML=`Next change in: ${hours}h ${minutes}m ${seconds}s`;}else{countdownEl.innerHTML="";}}
 function checkSchedule(){let now=new Date(),changed=false;playtestData.playtests.forEach(pt=>{let start=new Date(pt.start),end=new Date(pt.end),currentlyActive=playtestData.active;if(now>=start&&now<=end&&!currentlyActive){playtestData.active=true;changed=true;}if((now<start||now>end)&&currentlyActive){playtestData.active=false;changed=true;}});if(changed)updatePlaytest();}
-
-window.onload=()=>{
-document.getElementById('start-1').value=playtestData.playtests[0].start.slice(0,16);
-document.getElementById('end-1').value=playtestData.playtests[0].end.slice(0,16);
-document.getElementById('start-2').value=playtestData.playtests[1].start.slice(0,16);
-document.getElementById('end-2').value=playtestData.playtests[1].end.slice(0,16);
-document.getElementById('per-global-toggle').checked=playtestData.global;
-updatePlaytest();
-setInterval(()=>{checkSchedule();updatePlaytest();},1000);
-checkSchedule();
-};
+window.onload=()=>{document.getElementById('start-1').value=playtestData.playtests[0].start.slice(0,16);document.getElementById('end-1').value=playtestData.playtests[0].end.slice(0,16);document.getElementById('start-2').value=playtestData.playtests[1].start.slice(0,16);document.getElementById('end-2').value=playtestData.playtests[1].end.slice(0,16);document.getElementById('per-global-toggle').checked=playtestData.global;updatePlaytest();setInterval(checkSchedule,1000);checkSchedule();}
 </script>
-
 </body>
 </html>
