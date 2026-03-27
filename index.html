@@ -3,249 +3,200 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GRO VR - Official Website</title>
+<title>GRO VR</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Poppins',sans-serif;background:#0d0d0d;color:#fff;overflow-x:hidden;}
-a{text-decoration:none;color:inherit;}
-header{position:fixed;top:0;width:100%;background:#111;z-index:1000;padding:15px 0;display:flex;justify-content:center;flex-direction:column;align-items:center;border-bottom:2px solid #222;}
-header h1{color:#00ffe0;font-size:2.5em;margin-bottom:5px;letter-spacing:2px;}
-nav a{margin:0 15px;font-weight:600;color:#fff;transition:0.3s;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:#0b0f14;color:#fff;}
+header{position:fixed;top:0;width:100%;background:#0f141a;padding:15px;text-align:center;border-bottom:1px solid #1c2229;z-index:1000;}
+header h1{color:#00ffe0;font-size:2.2em;}
+nav{margin-top:5px;}
+nav a{margin:0 12px;color:#ccc;font-weight:600;cursor:pointer;}
 nav a:hover{color:#00ffe0;}
-.nav-admin{font-size:0.8em;background:#00ffe0;color:#111;padding:3px 6px;border-radius:5px;cursor:pointer;margin-left:5px;vertical-align:middle;}
+.nav-admin{background:#00ffe0;color:#000;padding:2px 6px;border-radius:4px;font-size:0.75em;margin-left:5px;}
 
-/* Sections */
-section{
-  padding:160px 20px 80px;
-  max-width:1200px;
-  margin:0 auto;
-  opacity:0;
-  transform:translateY(20px);
-  transition:opacity 0.6s, transform 0.6s;
-  display:none;
-}
-section.active{
-  display:block;
-  opacity:1;
-  transform:translateY(0);
-}
+section{display:none;padding:140px 20px 60px;max-width:1100px;margin:auto;}
+section.active{display:block;}
 
-/* Hero */
-.hero{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:80vh;position:relative;overflow:hidden;}
-.hero::before{content:"";position:absolute;top:0;left:0;width:100%;height:100%;background:url('IMG_3959.jpeg') center/cover no-repeat;opacity:0.07;filter:blur(6px);z-index:0;}
-.hero h2{font-size:3em;background:linear-gradient(45deg,#00ffe0,#00c6b3,#00ffe0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradientMove 3s infinite alternate;z-index:1;text-align:center;}
-@keyframes gradientMove{0%{background-position:0%}100%{background-position:100%}}
-.hero img{width:250px;height:250px;object-fit:cover;border-radius:25px;box-shadow:0 15px 40px rgba(0,255,224,0.3);margin:30px 0;z-index:1;}
-.hero p{max-width:700px;margin:auto;font-size:1.2em;z-index:1;text-align:center;}
-.button-group{display:flex;justify-content:center;flex-wrap:wrap;margin-top:25px;z-index:1;}
-.btn{background:linear-gradient(45deg,#00ffe0,#00c6b3);color:#111;padding:14px 30px;border:none;border-radius:12px;cursor:pointer;font-weight:700;margin:10px;transition:0.3s;}
-.btn:hover{background:linear-gradient(45deg,#00c6b3,#00ffe0);transform:translateY(-3px);}
+h2{text-align:center;color:#00ffe0;margin-bottom:20px;}
+p{text-align:center;margin-bottom:20px;color:#ccc;}
 
-/* Section headings and text */
-section h2{text-align:center;color:#00ffe0;margin-bottom:25px;font-size:2.5em;}
-section p{max-width:800px;margin:auto;font-size:1.1em;margin-bottom:25px;text-align:center;}
+.hero{text-align:center;}
+.hero img{width:220px;border-radius:20px;margin:20px 0;}
+.btn{background:#00ffe0;color:#000;padding:12px 25px;border-radius:10px;margin:8px;display:inline-block;font-weight:600;}
+.btn:hover{opacity:0.8;}
 
-/* Playtest API */
-#api{display:flex;flex-direction:column;align-items:center;}
-.playtest-status{font-size:1.3em;font-weight:700;text-align:center;margin-bottom:15px;}
-.playtest-container{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;width:100%;max-width:1000px;}
-.playtest-card{background:rgba(17,17,17,0.8);border:2px solid #00ffe0;border-radius:15px;padding:20px;min-width:250px;max-width:280px;text-align:center;transition:0.3s;cursor:default;backdrop-filter:blur(5px);}
-.playtest-card.active{background:#00ff6a;color:#111;border-color:#00ff6a;}
-.playtest-countdown,.playtest-dates{font-size:1em;text-align:center;margin-top:10px;color:#aaa;}
+.cards{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;margin-top:20px;}
+.card{background:#121821;padding:20px;border-radius:12px;border:1px solid #1f2a35;width:260px;text-align:center;}
+.card.active{background:#00ff6a;color:#000;}
 
-/* Admin panel */
-.admin-panel{display:none;background:#222;padding:25px;border-radius:15px;margin-top:30px;max-width:700px;margin:auto;box-shadow:0 0 25px rgba(0,255,224,0.2);}
-.admin-panel label{display:block;margin:10px 0 5px;}
-.admin-panel input[type="text"],.admin-panel input[type="datetime-local"],.admin-panel button{padding:10px;border-radius:6px;border:none;margin-bottom:10px;width:100%;}
-.admin-panel button{cursor:pointer;background:#00ffe0;font-weight:700;color:#111;transition:0.3s;}
-.admin-panel button:hover{background:#00c6b3;}
-.admin-panel .bottom-toggle{text-align:center;margin-top:10px;}
+.status{text-align:center;font-size:1.2em;margin-top:10px;}
+.countdown,.dates{text-align:center;font-size:0.9em;color:#aaa;margin-top:10px;}
 
-/* Footer */
-footer{text-align:center;padding:40px 0;border-top:2px solid #222;margin-top:50px;font-size:0.9em;color:#aaa;}
+.admin{display:none;background:#121821;padding:20px;border-radius:12px;margin-top:30px;}
+.admin input, .admin select{width:100%;padding:8px;margin-bottom:10px;border-radius:6px;border:none;background:#1c2430;color:#fff;}
+.admin button{width:100%;padding:10px;background:#00ffe0;border:none;font-weight:600;margin-bottom:10px;}
+.playtest-list{margin-top:10px;}
+.playtest-item{display:flex;justify-content:space-between;background:#1c2430;padding:8px;border-radius:6px;margin-bottom:5px;}
 
-@media(max-width:768px){.hero h2{font-size:2em}.hero img{width:180px;height:180px}.btn{padding:12px 25px}}
+footer{text-align:center;padding:30px;color:#777;margin-top:40px;border-top:1px solid #1c2229;}
 </style>
 </head>
 <body>
+
 <header>
 <h1>GRO VR</h1>
 <nav>
-<a href="#" onclick="showSection('home')">Home</a>
-<a href="#" onclick="showSection('play')">Play</a>
-<a href="#" onclick="showSection('youtube')">YouTube</a>
-<a href="#" onclick="showSection('api')">API</a>
+<a onclick="showSection('home')">Home</a>
+<a onclick="showSection('play')">Play</a>
+<a onclick="showSection('youtube')">YouTube</a>
+<a onclick="showSection('api')">API</a>
 <span class="nav-admin" onclick="adminPass()">Admin</span>
 </nav>
 </header>
 
-<!-- Home -->
 <section id="home" class="active">
 <div class="hero">
-<h2>Step Into The Ultimate VR Adventure</h2>
-<img src="IMG_3959.jpeg" alt="GRO VR Logo">
-<p>Explore Gorilla Tag movement mechanics with creative gardening. Swing, climb, tag, and grow your own immersive VR garden. Join playtests and shape the world!</p>
-<div class="button-group">
-<a href="#" onclick="showSection('play')" class="btn">Play on App Lab</a>
-<a href="#" onclick="showSection('youtube')" class="btn">Official YouTube</a>
-<a href="#" onclick="showSection('api')" class="btn">API / Playtest</a>
-</div>
+<h2>Ultimate VR Gardening Adventure</h2>
+<img src="IMG_3959.jpeg">
+<p>Climb, swing, and grow your VR garden with GRO VR.</p>
+<a class="btn" onclick="showSection('play')">Play</a>
+<a class="btn" onclick="showSection('api')">Playtests</a>
 </div>
 </section>
 
-<!-- Play -->
 <section id="play">
 <h2>Play GRO VR</h2>
-<p>Access the GRO VR playtest on Meta Quest App Lab:</p>
-<div class="button-group">
-<a href="https://www.meta.com/experiences/gro/24696055850016802/" class="btn">Go to App Lab</a>
+<p>Join the App Lab playtest.</p>
+<div style="text-align:center;">
+<a href="https://www.meta.com/experiences/gro/24696055850016802/" class="btn">Open App Lab</a>
 </div>
 </section>
 
-<!-- YouTube -->
 <section id="youtube">
-<h2>Official YouTube Channel</h2>
-<p>Watch trailers, updates, and developer content for GRO VR on our official YouTube channel.</p>
-<div class="button-group">
-<a href="https://www.youtube.com/@GRO.VRgame" class="btn">Visit YouTube</a>
+<h2>YouTube</h2>
+<p>Watch updates and trailers.</p>
+<div style="text-align:center;">
+<a href="https://www.youtube.com/@GRO.VRgame" class="btn">Visit Channel</a>
 </div>
 </section>
 
-<!-- API -->
 <section id="api">
-<h2>Playtest API</h2>
-<div class="playtest-status" id="playtest-status"></div>
-<div class="playtest-container" id="playtest-cards"></div>
-<div class="playtest-countdown" id="playtest-countdown"></div>
-<div class="playtest-dates" id="playtest-dates"></div>
+<h2>Playtests</h2>
+<div class="status" id="status"></div>
+<div class="cards" id="cards"></div>
+<div class="countdown" id="countdown"></div>
+<div class="dates" id="dates"></div>
 
-<div class="admin-panel" id="admin-panel">
-<h3>Admin Panel</h3>
-<label>Playtest Message:</label>
-<input type="text" id="playtest-msg" value="#GROROADTOLAUNCH Join now!">
-<label>Playtest 1 Start:</label>
-<input type="datetime-local" id="start-1">
-<label>Playtest 1 End:</label>
-<input type="datetime-local" id="end-1">
-<label>Playtest 2 Start:</label>
-<input type="datetime-local" id="start-2">
-<label>Playtest 2 End:</label>
-<input type="datetime-local" id="end-2">
-<label><input type="checkbox" id="per-global-toggle"> Make This Playtest Global</label>
-<button onclick="saveAdmin()">Save / Update</button>
-<button onclick="togglePlaytest()">Toggle Active/Inactive</button>
-<button onclick="revertChanges()">Revert Changes</button>
-<div class="bottom-toggle">
-<label><input type="checkbox" id="global-toggle-bottom" onchange="applyGlobalToggle()"> Make All Changes Global</label>
-</div>
+<div class="admin" id="admin">
+<h3>Manage Playtests</h3>
+
+<input type="text" id="msg" placeholder="Message">
+
+<input type="datetime-local" id="start">
+<input type="datetime-local" id="end">
+
+<select id="timezone">
+<option value="EST">EST</option>
+<option value="UTC">UTC</option>
+<option value="GST">GST (UAE)</option>
+</select>
+
+<button onclick="addPlaytest()">Add Playtest</button>
+
+<div class="playtest-list" id="list"></div>
+
+<button onclick="save()">Save</button>
 </div>
 </section>
 
 <footer>
-<p>&copy; 2026 GRO VR. All Rights Reserved.</p>
+© 2026 GRO VR
 </footer>
 
 <script>
-// Section navigation
 function showSection(id){
-  document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  window.scrollTo(0,0);
+document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+window.scrollTo(0,0);
 }
 
-// Admin
-let adminCodeHash='5293';
 function adminPass(){
-  let pass=prompt("Enter Admin Passcode:");
-  if(pass===adminCodeHash){
-    document.getElementById('admin-panel').style.display='block';
-    alert("Admin Panel Activated");
-  } else { alert("Incorrect Passcode"); }
+if(prompt("Passcode")=="5293"){
+document.getElementById("admin").style.display="block";
+}
 }
 
-// Playtest data
-let playtestData={message:"#GROROADTOLAUNCH Join now!",playtests:[{start:"2026-03-28T14:00:00",end:"2026-03-28T18:00:00"},{start:"2026-03-29T14:00:00",end:"2026-03-29T18:00:00"}],active:true,global:false};
-let lastSaved={...playtestData};
-if(localStorage.getItem('playtestData')){playtestData=JSON.parse(localStorage.getItem('playtestData'));lastSaved={...playtestData};}
+let data={
+message:"Join the playtest!",
+playtests:[
+{start:"2026-03-28T14:00:00",end:"2026-03-28T18:00:00",tz:"EST"},
+{start:"2026-03-29T14:00:00",end:"2026-03-29T18:00:00",tz:"EST"}
+]
+};
 
-// Admin functions
-function saveAdmin(){
-  playtestData.message=document.getElementById('playtest-msg').value;
-  playtestData.playtests=[
-    {start:new Date(document.getElementById('start-1').value).toISOString(),end:new Date(document.getElementById('end-1').value).toISOString()},
-    {start:new Date(document.getElementById('start-2').value).toISOString(),end:new Date(document.getElementById('end-2').value).toISOString()}
-  ];
-  playtestData.global=document.getElementById('per-global-toggle').checked;
-  lastSaved={...playtestData};
-  localStorage.setItem('playtestData',JSON.stringify(playtestData));
-  updatePlaytest();
-  alert("Playtest Updated");
+if(localStorage.getItem("data")){
+data=JSON.parse(localStorage.getItem("data"));
 }
 
-function revertChanges(){
-  playtestData={...lastSaved};
-  document.getElementById('playtest-msg').value=playtestData.message;
-  document.getElementById('start-1').value=playtestData.playtests[0].start.slice(0,16);
-  document.getElementById('end-1').value=playtestData.playtests[0].end.slice(0,16);
-  document.getElementById('start-2').value=playtestData.playtests[1].start.slice(0,16);
-  document.getElementById('end-2').value=playtestData.playtests[1].end.slice(0,16);
-  document.getElementById('per-global-toggle').checked=playtestData.global;
-  localStorage.setItem('playtestData',JSON.stringify(playtestData));
-  updatePlaytest();
-  alert("Changes Reverted");
+function addPlaytest(){
+let s=document.getElementById("start").value;
+let e=document.getElementById("end").value;
+let tz=document.getElementById("timezone").value;
+data.playtests.push({start:s,end:e,tz:tz});
+renderList();
+update();
 }
 
-function togglePlaytest(){playtestData.active=!playtestData.active;localStorage.setItem('playtestData',JSON.stringify(playtestData));updatePlaytest();}
-function applyGlobalToggle(){playtestData.global=document.getElementById('global-toggle-bottom').checked;localStorage.setItem('playtestData',JSON.stringify(playtestData));updatePlaytest();}
-
-// Playtest rendering
-function updatePlaytest(){
-  let now=new Date(),
-      statusEl=document.getElementById('playtest-status'),
-      cardsEl=document.getElementById('playtest-cards'),
-      countdownEl=document.getElementById('playtest-countdown'),
-      datesEl=document.getElementById('playtest-dates');
-  cardsEl.innerHTML="";
-  let isActive=false;
-  playtestData.playtests.forEach((pt,i)=>{
-    let start=new Date(pt.start),end=new Date(pt.end),activeNow=now>=start&&now<=end;
-    if(activeNow)isActive=true;
-    let card=document.createElement('div');
-    card.className='playtest-card'+(activeNow?' active':'');
-    card.innerHTML=`<strong>Playtest ${i+1}</strong><br>Start: ${start.toLocaleString()}<br>End: ${end.toLocaleString()}`;
-    cardsEl.appendChild(card);
-  });
-  if(playtestData.active)isActive=true;
-  statusEl.innerHTML=isActive?`<span style="color:#00ff6a;">ACTIVE</span><br>${playtestData.message}`:`<span style="color:#ff5555;">INACTIVE</span><br>${playtestData.message}`;
-  if(playtestData.global)statusEl.innerHTML+="<br><em>Global Playtest Enabled</em>";
-  datesEl.innerHTML=playtestData.playtests.map((pt,i)=>{let start=new Date(pt.start),end=new Date(pt.end);return `Playtest ${i+1} Start: ${start.toLocaleString()} | End: ${end.toLocaleString()}`;}).join("<br>");
-  let nextChange=null;
-  playtestData.playtests.forEach(pt=>{
-    let start=new Date(pt.start),end=new Date(pt.end);
-    if(!nextChange||start>now&&start<nextChange)nextChange=start;
-    if(!nextChange||end>now&&end<nextChange)nextChange=end;
-  });
-  if(nextChange){
-    let diff=Math.max(nextChange-now,0),
-        hours=Math.floor(diff/1000/3600),
-        minutes=Math.floor((diff/1000%3600)/60),
-        seconds=Math.floor(diff/1000%60);
-    countdownEl.innerHTML=`Next change in: ${hours}h ${minutes}m ${seconds}s`;
-  } else {countdownEl.innerHTML="";}
+function deletePlaytest(i){
+data.playtests.splice(i,1);
+renderList();
+update();
 }
 
-// Live update
-setInterval(updatePlaytest,1000);
-
-window.onload=()=>{
-  document.getElementById('start-1').value=playtestData.playtests[0].start.slice(0,16);
-  document.getElementById('end-1').value=playtestData.playtests[0].end.slice(0,16);
-  document.getElementById('start-2').value=playtestData.playtests[1].start.slice(0,16);
-  document.getElementById('end-2').value=playtestData.playtests[1].end.slice(0,16);
-  document.getElementById('per-global-toggle').checked=playtestData.global;
-  updatePlaytest();
+function renderList(){
+let list=document.getElementById("list");
+list.innerHTML="";
+data.playtests.forEach((p,i)=>{
+let div=document.createElement("div");
+div.className="playtest-item";
+div.innerHTML=`${p.start} (${p.tz}) <button onclick="deletePlaytest(${i})">X</button>`;
+list.appendChild(div);
+});
 }
+
+function save(){
+data.message=document.getElementById("msg").value;
+localStorage.setItem("data",JSON.stringify(data));
+update();
+}
+
+function update(){
+let now=new Date();
+let active=false;
+let cards=document.getElementById("cards");
+cards.innerHTML="";
+
+data.playtests.forEach(p=>{
+let start=new Date(p.start);
+let end=new Date(p.end);
+let is=now>=start&&now<=end;
+if(is)active=true;
+
+let c=document.createElement("div");
+c.className="card"+(is?" active":"");
+c.innerHTML=`Start: ${start.toLocaleString()} (${p.tz})<br>End: ${end.toLocaleString()} (${p.tz})`;
+cards.appendChild(c);
+});
+
+document.getElementById("status").innerHTML=active?"ACTIVE":"INACTIVE";
+document.getElementById("dates").innerHTML=data.playtests.map(p=>`${p.start} - ${p.end} (${p.tz})`).join("<br>");
+}
+
+setInterval(update,1000);
+renderList();
+update();
 </script>
+
 </body>
 </html>
