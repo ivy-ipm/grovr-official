@@ -8,130 +8,34 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
 body{background:#0a0f14;color:#fff;overflow-x:hidden;}
-a{text-decoration:none;color:inherit}
-
-/* NAV */
-header{
-position:fixed;top:0;width:100%;
-background:rgba(15,20,25,0.9);
-backdrop-filter:blur(10px);
-padding:15px;
-text-align:center;
-border-bottom:1px solid #1c2229;
-z-index:1000;
-}
+a{text-decoration:none;color:inherit;}
+header{position:fixed;top:0;width:100%;background:rgba(15,20,25,0.9);backdrop-filter:blur(10px);padding:15px;text-align:center;border-bottom:1px solid #1c2229;z-index:1000;}
 header h1{color:#00ffe0;font-size:2.2em;}
 nav a{margin:0 12px;color:#aaa;font-weight:600;cursor:pointer;}
 nav a:hover{color:#00ffe0;}
-.nav-admin{background:#00ffe0;color:#000;padding:2px 6px;border-radius:4px;font-size:0.75em;margin-left:5px}
-
-/* SECTIONS */
+.nav-admin{background:#00ffe0;color:#000;padding:2px 6px;border-radius:4px;font-size:0.75em;margin-left:5px;}
 section{display:none;padding:140px 20px 80px;max-width:1100px;margin:auto;}
 section.active{display:block;animation:fade 0.5s ease;}
 @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-
-/* HERO */
 .hero{text-align:center;}
-.hero h2{
-font-size:3em;
-background:linear-gradient(90deg,#00ffe0,#00c6ff);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-}
+.hero h2{font-size:3em;background:linear-gradient(90deg,#00ffe0,#00c6ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 .hero img{width:240px;border-radius:20px;margin:25px 0;box-shadow:0 20px 50px rgba(0,255,224,0.2);}
 .hero p{max-width:800px;margin:auto;color:#ccc;font-size:1.1em;line-height:1.7;margin-top:10px;}
-
-.btn{
-background:linear-gradient(45deg,#00ffe0,#00c6ff);
-color:#000;
-padding:12px 28px;
-border-radius:12px;
-display:inline-block;
-margin:10px;
-font-weight:600;
-transition:0.3s;
-}
-.btn:hover{transform:translateY(-2px);opacity:0.9}
-
-/* API DASHBOARD */
-.dashboard{
-background:rgba(20,25,30,0.6);
-backdrop-filter:blur(12px);
-border:1px solid #1f2a35;
-border-radius:16px;
-padding:25px;
-margin-top:20px;
-}
-
-.status{
-text-align:center;
-font-size:1.3em;
-font-weight:700;
-margin-bottom:15px;
-}
-
-.cards{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:20px;
-}
-
-.card{
-background:linear-gradient(145deg,#121821,#0e141a);
-border:1px solid #1f2a35;
-border-radius:14px;
-padding:20px;
-width:260px;
-text-align:center;
-transition:0.3s;
-}
-
-.card.active{
-background:linear-gradient(145deg,#00ff6a,#00c95a);
-color:#000;
-box-shadow:0 0 20px rgba(0,255,106,0.4);
-}
-
-/* ADMIN */
-.admin{
-display:none;
-margin-top:25px;
-background:#121821;
-padding:20px;
-border-radius:12px;
-}
-.admin input,.admin select{
-width:100%;
-padding:10px;
-margin-bottom:10px;
-border:none;
-border-radius:6px;
-background:#1c2430;
-color:#fff;
-}
-.admin button{
-width:100%;
-padding:10px;
-background:#00ffe0;
-border:none;
-margin-bottom:10px;
-font-weight:600;
-}
-.playtest-item{
-display:flex;
-justify-content:space-between;
-background:#1c2430;
-padding:8px;
-border-radius:6px;
-margin-bottom:5px;
-}
-
+.btn{background:linear-gradient(45deg,#00ffe0,#00c6ff);color:#000;padding:12px 28px;border-radius:12px;display:inline-block;margin:10px;font-weight:600;transition:0.3s;}
+.btn:hover{transform:translateY(-2px);opacity:0.9;}
+.dashboard{background:rgba(20,25,30,0.6);backdrop-filter:blur(12px);border:1px solid #1f2a35;border-radius:16px;padding:25px;margin-top:20px;}
+.status{text-align:center;font-size:1.3em;font-weight:700;margin-bottom:15px;}
+.cards{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;}
+.card{background:linear-gradient(145deg,#121821,#0e141a);border:1px solid #1f2a35;border-radius:14px;padding:20px;width:260px;text-align:center;transition:0.3s;}
+.card.active{background:linear-gradient(145deg,#00ff6a,#00c95a);color:#000;box-shadow:0 0 20px rgba(0,255,106,0.4);}
+.admin{display:none;margin-top:25px;background:#121821;padding:20px;border-radius:12px;}
+.admin input,.admin select{width:100%;padding:10px;margin-bottom:10px;border:none;border-radius:6px;background:#1c2430;color:#fff;}
+.admin button{width:100%;padding:10px;background:#00ffe0;border:none;margin-bottom:10px;font-weight:600;}
+.playtest-item{display:flex;justify-content:space-between;background:#1c2430;padding:8px;border-radius:6px;margin-bottom:5px;}
 footer{text-align:center;padding:30px;color:#777;margin-top:40px;}
 </style>
 </head>
 <body>
-
 <header>
 <h1>GRO VR</h1>
 <nav>
@@ -142,8 +46,6 @@ footer{text-align:center;padding:30px;color:#777;margin-top:40px;}
 <span class="nav-admin" onclick="admin()">Admin</span>
 </nav>
 </header>
-
-<!-- HOME -->
 <section id="home" class="active">
 <div class="hero">
 <h2>Step Into The Ultimate VR Adventure</h2>
@@ -161,8 +63,6 @@ and be part of a fast-growing VR community pushing creativity forward.
 </div>
 </div>
 </section>
-
-<!-- PLAY -->
 <section id="play">
 <h2 style="text-align:center;color:#00ffe0;">Play GRO VR</h2>
 <p>Join the official App Lab build.</p>
@@ -170,8 +70,6 @@ and be part of a fast-growing VR community pushing creativity forward.
 <a href="https://www.meta.com/experiences/gro/24696055850016802/" class="btn">Open App Lab</a>
 </div>
 </section>
-
-<!-- YT -->
 <section id="youtube">
 <h2 style="text-align:center;color:#00ffe0;">YouTube</h2>
 <p>Watch trailers, devlogs, and updates.</p>
@@ -179,50 +77,39 @@ and be part of a fast-growing VR community pushing creativity forward.
 <a href="https://www.youtube.com/@GRO.VRgame" class="btn">Visit Channel</a>
 </div>
 </section>
-
-<!-- API -->
 <section id="api">
 <h2 style="text-align:center;color:#00ffe0;">Live Playtests</h2>
-
 <div class="dashboard">
 <div class="status" id="status"></div>
 <div class="cards" id="cards"></div>
 </div>
-
 <div class="admin" id="adminPanel">
 <input id="msg" placeholder="Message">
-
 <input type="datetime-local" id="start">
 <input type="datetime-local" id="end">
-
 <select id="tz">
 <option value="EST">EST</option>
 <option value="UTC">UTC</option>
 <option value="GST">GST</option>
 </select>
-
 <button onclick="add()">Add Playtest</button>
 <div id="list"></div>
 <button onclick="save()">Save</button>
 </div>
-
 </section>
-
 <footer>© 2026 GRO VR</footer>
-
 <script>
-function show(id){
-document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
-document.getElementById(id).classList.add('active');
-window.scrollTo(0,0);
-}
-
+let adminUnlocked=false;
 function admin(){
-if(prompt("Passcode")=="5293"){
-document.getElementById("adminPanel").style.display="block";
+let pass=prompt("Enter Admin Passcode:");
+if(pass==="5293"){adminUnlocked=true;document.getElementById("adminPanel").style.display="block";}
 }
+function show(id){
+document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
+document.getElementById(id).classList.add("active");
+window.scrollTo(0,0);
+if(id==="api"&&!adminUnlocked){document.getElementById("adminPanel").style.display="none";}
 }
-
 let data={
 message:"Join the playtest!",
 playtests:[
@@ -230,28 +117,18 @@ playtests:[
 {start:"2026-03-29T14:00:00",end:"2026-03-29T18:00:00",tz:"EST"}
 ]
 };
-
-if(localStorage.getItem("data")){
-data=JSON.parse(localStorage.getItem("data"));
-}
-
-function convert(dateStr,tz){
-let d=new Date(dateStr);
-return d.toLocaleString();
-}
-
+if(localStorage.getItem("data")){data=JSON.parse(localStorage.getItem("data"));}
+function convert(dateStr,tz){return new Date(dateStr).toLocaleString();}
 function update(){
 let now=new Date();
 let active=false;
 let cards=document.getElementById("cards");
 cards.innerHTML="";
-
 data.playtests.forEach(p=>{
 let start=new Date(p.start);
 let end=new Date(p.end);
 let is=now>=start&&now<=end;
 if(is)active=true;
-
 let c=document.createElement("div");
 c.className="card"+(is?" active":"");
 c.innerHTML=`<strong>${is?"LIVE NOW":"Scheduled"}</strong><br><br>
@@ -259,10 +136,8 @@ Start:<br>${convert(p.start,p.tz)}<br><br>
 End:<br>${convert(p.end,p.tz)}`;
 cards.appendChild(c);
 });
-
 document.getElementById("status").innerHTML=active?"🟢 PLAYTEST LIVE":"🔴 NO ACTIVE PLAYTEST";
 }
-
 function add(){
 let s=start.value;
 let e=end.value;
@@ -271,7 +146,6 @@ data.playtests.push({start:s,end:e,tz:tz});
 renderList();
 update();
 }
-
 function renderList(){
 let list=document.getElementById("list");
 list.innerHTML="";
@@ -279,23 +153,9 @@ data.playtests.forEach((p,i)=>{
 list.innerHTML+=`<div class="playtest-item">${p.start} <button onclick="del(${i})">X</button></div>`;
 });
 }
-
-function del(i){
-data.playtests.splice(i,1);
-renderList();
-update();
-}
-
-function save(){
-data.message=msg.value;
-localStorage.setItem("data",JSON.stringify(data));
-update();
-}
-
-setInterval(update,1000);
-renderList();
-update();
+function del(i){data.playtests.splice(i,1);renderList();update();}
+function save(){data.message=msg.value;localStorage.setItem("data",JSON.stringify(data));update();}
+setInterval(update,1000);renderList();update();
 </script>
-
 </body>
 </html>
